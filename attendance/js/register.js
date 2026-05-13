@@ -13,6 +13,7 @@ if(txtfname == "" || txtemail == "" || txtpass == "" ){
 }else{
     if(txtconpass == txtpass) {
         let emailid = txtemail.replace(/\./g, "_dot_").replace(/@/g, "_at_")
+        let role = "Admin"
         let status = "inactive"
         let timenow = Date.now();
         firebase.auth().createUserWithEmailAndPassword(txtemail, txtpass)
@@ -23,6 +24,7 @@ if(txtfname == "" || txtemail == "" || txtpass == "" ){
                 Email: txtemail,
                 Status: status,
                 CreatedBy: txtemail,
+                role: role,
                 CreatedOn: timenow
             })
             alert("Account Created!")

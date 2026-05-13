@@ -17,19 +17,23 @@
             <form action="" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Enter Username</label>
-                    <input type="text" name="" placeholder="Username">
+                    <input type="text" name="" placeholder="Username" id="txtusername">
                 </div>
                 <div class="form-group">
                     <label>Enter Password</label>
-                    <input type="password" name="" placeholder="*****">
+                    <input type="password" name="" placeholder="*****" id="txtpass">
                 </div>
-                <button class="btn-primary">Login</button>
+                <button class="btn-primary" id="btnlogin">Login</button>
                 <button class="btn-register"> <a href="register.html">Don't have an account? Register Now</a></button>
                 <button class="btn-forgot"><a href="reset.html">Forgot Password?</a></button>
             </form>
         </div>
     </div>
-
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-auth.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
 
 </body>
 </html>
