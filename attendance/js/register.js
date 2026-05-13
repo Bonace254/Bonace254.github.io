@@ -1,7 +1,7 @@
 let btnCreate = document.getElementById('btnCreate')
 
-btnCreate.addEventListener('click', (e) => {
-    e.preventDefault();
+btnCreate.addEventListener('click', () => {
+   
 let txtfname = document.getElementById('txtfname').value
 let txtlname = document.getElementById('txtlname').value
 let txtemail = document.getElementById('txtemail').value
