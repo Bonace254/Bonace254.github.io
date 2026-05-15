@@ -207,3 +207,29 @@ function activatecourse(courseid){
     })
 
 }
+
+// loading the real-time data (active and inactive courses)
+
+let lbActiveCourses = document.getElementById('lbActiveCourses')
+firebase.database().ref("Courses").once("value", function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childSnapshot){
+        let data = childSnapshot.val()
+       if (data.Status == "active"){
+            total = total + 1
+        }
+    })
+    lbActiveCourses.innerHTML = total
+})
+
+let lbInactiveCourses = document.getElementById('lbInactiveCourses')
+firebase.database().ref("Courses").once("value", function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childSnapshot){
+        let data = childSnapshot.val()
+       if (data.Status == "inactive"){
+            total = total + 1
+        }
+    })
+    lbInactiveCourses.innerHTML = total
+})
