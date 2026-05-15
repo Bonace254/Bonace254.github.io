@@ -32,3 +32,21 @@
   .btnblue:hover{
     background: #0066cc;
   }
+
+  .btnprint{
+    background: #0014cc;
+    color: white;
+    margin-top: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    border: none;
+    font-weight: bold;
+  }
+
+  .btnprint:hover{
+    background: #00992e;
+    transition: 2s;
+
+  }

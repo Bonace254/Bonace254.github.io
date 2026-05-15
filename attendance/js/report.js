@@ -161,3 +161,7 @@ function gpsvenue(){
         }
     })
 }
+
+function printReport(){
+    window.print()
+}
