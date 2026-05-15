@@ -83,16 +83,127 @@ let btnaddcourse = document.getElementById("btnaddcourse");
       alert("Course added successfully");
 
       // clear inputs
-      document.getElementById("txtvenuename").value = "";
-      document.getElementById("txtvenuecode").value = "";
-      document.getElementById("txtlongitude").value = "";
-      document.getElementById("txtlatitude").value = "";
-      loaddata();
-      document.getElementById("txtvenuecode").disabled = false;
-      document.getElementById("btnaddcourse").innerText = "Add new GPS";
+      document.getElementById("txtcoursename").value = "";
+      document.getElementById("txtcoursecode").value = "";
+
     })
 
     .catch((error) => {
       alert(error.message);
     });
   });
+
+  // load data into the dashboard
+
+  function loaddata(){
+  // Load venue to the table
+   // table body
+  let tableBody = document.getElementById("tablebody");
+  // load data
+  firebase.database().ref("Courses").on("value", (snapshot) => {
+    // clear table first
+    tableBody.innerHTML = "";
+    snapshot.forEach((childSnapshot) => {
+      let data = childSnapshot.val();
+      let key = childSnapshot.key; // venueCode key help in modification
+      // only active venues
+      if(data.Status == "active"){
+        tableBody.innerHTML += `
+          <tr>
+            <td>${data.CourseCode}</td>
+            <td>${data.CourseName}</td>
+            <td>${data.Lecturername}</td>
+            <td>${data.Venue}</td>
+
+            <td>
+              <button class="btn btnred" onclick="suspendcourse('${key}')">
+                Suspend course
+              </button>
+            </td>
+
+          </tr>
+
+        `;
+      }
+
+    });
+
+  });
+}
+
+loaddata();
+
+
+ function loaddatainactive(){
+  // Load venue to the table
+   // table body
+  let tableBody = document.getElementById("tablebodyinactive");
+  // load data
+  firebase.database().ref("Courses").on("value", (snapshot) => {
+    // clear table first
+    tableBody.innerHTML = "";
+    snapshot.forEach((childSnapshot) => {
+      let data = childSnapshot.val();
+      let key = childSnapshot.key; // venueCode key help in modification
+      // only active venues
+      if(data.Status == "inactive"){
+        tableBody.innerHTML += `
+          <tr>
+            <td>${data.CourseCode}</td>
+            <td>${data.CourseName}</td>
+            <td>${data.Lecturername}</td>
+            <td>${data.Venue}</td>
+
+            <td>
+              <button class="btn btngreen" onclick="activatecourse('${key}')">
+                Activate course
+              </button>
+            </td>
+
+          </tr>
+
+        `;
+      }
+
+    });
+
+  });
+}
+
+loaddatainactive()
+
+
+
+
+// suspend and activate course 
+function suspendcourse(courseid){
+    let confirmSuspend = confirm("Are you sure you want to suspend this course ?")
+    if(!confirmSuspend) return;
+    firebase.database().ref("Courses/" + courseid).update({
+        Status:"inactive"
+    })
+    .then(() =>{
+        alert("Course suspended Successfully")
+    })
+    .then((error) =>{
+        alert("Error while suspending" + error.message)
+    })
+
+}
+
+
+
+function activatecourse(courseid){
+    let confirmSuspend = confirm("Are you sure you want to activate this course ?")
+    if(!confirmSuspend) return;
+    firebase.database().ref("Courses/" + courseid).update({
+        Status:"active"
+    })
+    .then(() =>{
+        alert("Course activated Successfully")
+    })
+    .then((error) =>{
+        alert("Error while activating" + error.message)
+    })
+
+}
