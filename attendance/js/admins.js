@@ -135,3 +135,28 @@ function activateadmin(adminid){
     })
 
 }
+
+
+let lbActiveAdmins = document.getElementById('lbActiveAdmins')
+firebase.database().ref("userDetails").once("value", function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childSnapshot){
+        let data = childSnapshot.val()
+       if (data.role == "Admin" && data.Status == "active"){
+            total = total + 1
+        }
+    })
+    lbActiveAdmins.innerHTML = total
+})
+
+let lbInactiveAdmins = document.getElementById('lbInactiveAdmins')
+firebase.database().ref("userDetails").once("value", function(snapshot){
+    let total = 0
+    snapshot.forEach(function(childSnapshot){
+        let data = childSnapshot.val()
+       if (data.role == "Admin" && data.Status == "inactive"){
+            total = total + 1
+        }
+    })
+    lbInactiveAdmins.innerHTML = total
+})
